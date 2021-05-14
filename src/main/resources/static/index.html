@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <title>Casino</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="index.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Casino! Et enkelt terningspill</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <form class="form">
+
+                <div class="form-group">
+                    <label for="brukernavn">Brukernavn:</label>
+                    <input type="text" class="form-control" id="brukernavn">
+                </div>
+
+                <div class="form-group">
+                    <label for="telefonnr">Telefonnummer:</label>
+                    <input type="text" class="form-control" id="telefonnr">
+                </div>
+
+                <div class="form-group">
+                    <label for="land">Land</label>
+                    <select type="text" class="form-control" id="land" onchange="hentBy(this.value)"></select>
+                </div>
+
+                <div class="form-group">
+                    <label for="by">By</label>
+                    <select type="text" class="form-control" id="by"></select>
+                </div>
+
+                <div class="form-group">
+                    <label for="terningKast">Antall kast</label>
+                    <input type="text" class="form-control" id="terningKast" value="0" readonly>
+                </div>
+
+            </form>
+            <button class="btn btn-info" id="rullTerning" onclick="rullTerning()">Rull terning</button>
+            <button class="btn btn-primary" id="sendResultat" disabled onclick="sendResultat()">Send resultat</button>
+            <div id="resultat"></div>
+
+        </div>
+
+        <div class="col-md-8">
+            <h3>Highscore:</h3>
+            <div id="highscore" class="table-responsive">
+
+            </div>
+            <button class="btn btn-danger" onclick="slettHighscore()">Slett highscore</button>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>
