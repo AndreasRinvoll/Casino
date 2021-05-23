@@ -39,6 +39,13 @@ function rullTerning() {
         });
 }
 
+//Noen regular expression tester!
+//Husk å ikke bruke + mellom uttrykk, da er det lett å introdusere mellomrom,
+//med mindre et enkelt tegn skal legges til før en av listene. Se epost:
+const regexpEpost = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+//Fagkodetest:
+const regexpTest = /^[A-Z]{4}[0-9]{4}$/;
+
 function validerBrukernavn() {
     const brukernavn = $("#brukernavn").val();
     const regexp = /^[a-zA-ZæøåÆØÅ\- .]{3,8}$/;
@@ -192,6 +199,27 @@ function hentBy(land) {
             if (by.land === land) {
                 $("#by").append($("<option>" + by.by + "</option>").val(by.by));
             }
+        }
+    });
+}
+
+function logut(){
+    $.get("/logut", function (){
+       alert("Du er logget ut!")
+    });
+}
+
+function nyBruker(){
+
+    const nyBruker = {
+        brukernavn: $("#brukernavn").val(),
+        passord: $("#passord").val()
+    };
+
+    $.post("/nyBruker", nyBruker, function (ok){
+        if(ok){
+            alert("Bruker registrert");
+            window.location.href="/index.html";
         }
     });
 }

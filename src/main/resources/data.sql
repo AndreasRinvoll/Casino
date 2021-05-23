@@ -16,3 +16,6 @@ INSERT INTO LandOgBy (land, by) VALUES
 ('Sverige', 'Malmö'),
 ('Sverige', 'Umeå'),
 ('Sverige', 'Arvika');
+
+INSERT INTO Login (brukernavn, passord) VALUES
+('Admin', 'Admin123');

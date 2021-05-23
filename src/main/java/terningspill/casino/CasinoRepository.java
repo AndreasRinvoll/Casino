@@ -1,5 +1,6 @@
 package terningspill.casino;
 
+import org.mindrot.jbcrypt.BCrypt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,5 +77,42 @@ public class CasinoRepository {
             return null;
         }
 
+    }
+
+    public boolean login(Login bruker){
+        String sql = "SELECT * FROM Login WHERE brukernavn = ?;";
+
+        List<Login> finnBruker = db.query(sql, new BeanPropertyRowMapper<>(Login.class), bruker.getBrukernavn());
+
+        if(finnBruker.size() > 0){
+            String kryptertLagretPassord = finnBruker.get(0).getPassord();
+            String loginPassord = bruker.getPassord();
+            if(sjekkPassord(loginPassord, kryptertLagretPassord)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean sjekkPassord(String loginPassord, String kryptertLagretPassord){
+        //return loginPassord.matches(lagretPassord);
+        return BCrypt.checkpw(loginPassord,kryptertLagretPassord);
+    }
+
+    public boolean nyBruker(Login nyBruker){
+        String sql = "INSERT INTO Login (brukernavn, passord) VALUES (?,?);";
+
+        String kryptertPassord = hashPassord(nyBruker.getPassord());
+
+        try{
+            db.update(sql,nyBruker.getBrukernavn(),kryptertPassord);
+            return true;
+        } catch (Exception e){
+            return false;
+        }
+    }
+
+    private String hashPassord(String passord){
+        return BCrypt.hashpw(passord, BCrypt.gensalt(10));
     }
 }

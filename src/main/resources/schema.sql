@@ -16,3 +16,10 @@ CREATE TABLE LandOgBy
     by VARCHAR (255) NOT NULL,
     PRIMARY KEY (id)
 );
+
+CREATE TABLE Login
+(
+    brukernavn VARCHAR (30) NOT NULL,
+    passord VARCHAR (255) NOT NULL,
+    PRIMARY KEY (brukernavn)
+);
